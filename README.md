@@ -1,6 +1,10 @@
 # Agent0 SDK Subgraph
 
-A comprehensive subgraph for indexing [ERC-8004](https://eips.ethereum.org/EIP-8004) Trustless Agents protocol data, providing GraphQL APIs for agent discovery, reputation tracking, and validation across multiple blockchain networks.
+A subgraph for indexing [ERC-8004](https://eips.ethereum.org/EIP-8004) Trustless Agents protocol data, providing GraphQL APIs for agent discovery, reputation tracking, and validation.
+
+**Current Deployment:**
+- **Network**: Ethereum Sepolia (Chain ID: 11155111)
+- **Endpoint**: `https://gateway.thegraph.com/api/00a452ad3cd1900273ea62c1bf283f93/subgraphs/id/6wQRC7geo9XYAhckfmfo8kbMRLeWU8KQd3XsJqFKmZLT`
 
 ## 🚀 Quick Start
 
@@ -47,9 +51,10 @@ This subgraph indexes data from three core smart contracts implementing the ERC-
 - 🔍 **Comprehensive Agent Data** - On-chain registration with rich off-chain metadata
 - 📊 **Real-time Reputation** - Live feedback scoring and response tracking
 - ✅ **Validation Tracking** - Complete validation lifecycle with status management
-- 🌐 **Multi-chain Support** - Automatic chain detection and protocol isolation
 - 📁 **IPFS Integration** - Native JSON parsing via File Data Sources
 - 🔄 **Rich Relationships** - Connected data through derived fields and references
+
+**Note:** Currently deployed for Ethereum Sepolia only. Additional networks coming soon.
 
 ## 🏗️ Architecture
 
@@ -418,14 +423,18 @@ Addresses are managed in `src/contract-addresses.ts` for dynamic per-chain resol
 
 ### Supported Chains
 
+**Currently Deployed:**
 - **Ethereum Sepolia**: Chain ID 11155111
+  - Endpoint: `https://gateway.thegraph.com/api/00a452ad3cd1900273ea62c1bf283f93/subgraphs/id/6wQRC7geo9XYAhckfmfo8kbMRLeWU8KQd3XsJqFKmZLT`
+
+**Code Support (Not Yet Deployed):**
 - **Base Sepolia**: Chain ID 84532
 - **Linea Sepolia**: Chain ID 59141
 
-Add more chains by:
-1. Adding addresses to `src/contract-addresses.ts`
-2. Creating data sources in `subgraph.yaml`
-3. Deploying to the target network
+To deploy for additional chains:
+1. Ensure addresses are configured in `src/contract-addresses.ts`
+2. Verify data sources exist in `subgraph.yaml`
+3. Deploy to The Graph Network with appropriate network name
 
 ## 🚀 Development
 
