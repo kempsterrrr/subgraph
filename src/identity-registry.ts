@@ -74,7 +74,8 @@ export function handleAgentRegistered(event: Registered): void {
   
   globalStats.updatedAt = event.block.timestamp
   globalStats.save()
-  
+
+  // Handle file data source creation (mutually exclusive: IPFS or Arweave)
   if (event.params.tokenURI.length > 0 && isIpfsUri(event.params.tokenURI)) {
     let ipfsHash = extractIpfsHash(event.params.tokenURI)
     logIpfsExtraction("agent registration", event.params.tokenURI, ipfsHash)
@@ -95,9 +96,8 @@ export function handleAgentRegistered(event: Registered): void {
       log.info("Set registrationFile connection for agent {} to ID: {}", [agentEntityId, fileId])
     }
   }
-
-  // Arweave handling
-  if (event.params.tokenURI.length > 0 && isArweaveUri(event.params.tokenURI)) {
+  // Arweave handling (mutually exclusive with IPFS)
+  else if (event.params.tokenURI.length > 0 && isArweaveUri(event.params.tokenURI)) {
     let arweaveTxId = extractArweaveTxId(event.params.tokenURI)
     logArweaveExtraction("agent registration", event.params.tokenURI, arweaveTxId)
 
@@ -164,7 +164,8 @@ export function handleUriUpdated(event: UriUpdated): void {
   agent.agentURI = event.params.newUri
   agent.updatedAt = event.block.timestamp
   agent.save()
-  
+
+  // Handle file data source creation (mutually exclusive: IPFS or Arweave)
   if (isIpfsUri(event.params.newUri)) {
     agent.agentURIType = "ipfs"
     agent.save()
@@ -188,9 +189,8 @@ export function handleUriUpdated(event: UriUpdated): void {
     }
     // updateProtocolActiveCounts removed - active/inactive stats removed
   }
-
-  // Arweave handling
-  if (isArweaveUri(event.params.newUri)) {
+  // Arweave handling (mutually exclusive with IPFS)
+  else if (isArweaveUri(event.params.newUri)) {
     agent.agentURIType = "arweave"
     agent.save()
     let arweaveTxId = extractArweaveTxId(event.params.newUri)

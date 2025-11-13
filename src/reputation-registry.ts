@@ -63,8 +63,8 @@ export function handleNewFeedback(event: NewFeedback): void {
   }
   
   feedback.save()
-  
-  // Trigger IPFS file data source if URI is IPFS
+
+  // Handle file data source creation (mutually exclusive: IPFS or Arweave)
   if (event.params.feedbackUri.length > 0 && isIpfsUri(event.params.feedbackUri)) {
     let ipfsHash = extractIpfsHash(event.params.feedbackUri)
     logIpfsExtraction("feedback", event.params.feedbackUri, ipfsHash)
@@ -87,9 +87,8 @@ export function handleNewFeedback(event: NewFeedback): void {
       log.info("Set feedbackFile connection for feedback {} to ID: {}", [feedbackId, fileId])
     }
   }
-
-  // Arweave handling
-  if (event.params.feedbackUri.length > 0 && isArweaveUri(event.params.feedbackUri)) {
+  // Arweave handling (mutually exclusive with IPFS)
+  else if (event.params.feedbackUri.length > 0 && isArweaveUri(event.params.feedbackUri)) {
     let arweaveTxId = extractArweaveTxId(event.params.feedbackUri)
     logArweaveExtraction("feedback", event.params.feedbackUri, arweaveTxId)
 
